@@ -3,12 +3,18 @@ package com.coursejava.coursespringjpa.models;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
+import jakarta.annotation.sql.*;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="tb_user")
 public class User implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private String name;
     private String email;

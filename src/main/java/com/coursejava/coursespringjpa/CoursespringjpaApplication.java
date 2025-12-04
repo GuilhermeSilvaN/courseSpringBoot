@@ -9,7 +9,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication //configuracao da porta de entrada da aplicacao
 @Configuration // define que a classe pode ter metodos que definem bins
-@EnableAutoConfiguration // ativa a autoconfig do spring
+@EnableAutoConfiguration /*ativa a autoconfig do spring*/
 @ComponentScan //permite que o spring escaneie todos os pacotes para fazer o gerenciamento do ciclo de vida dos componentes;
 public class CoursespringjpaApplication {
 
