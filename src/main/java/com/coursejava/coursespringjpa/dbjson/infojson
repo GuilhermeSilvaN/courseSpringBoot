@@ -1,0 +1,34 @@
+//objetos json para testar o h2;
+
+[
+    {
+        "name": "Erika Amano",
+        "email": "erika.amano@example.com",
+        "phone": "(11) 9 9823-4412",
+        "password": "sunset123"
+    },
+    {
+        "name": "Kazuto Kirigaya",
+        "email": "kirito.kun@example.com",
+        "phone": "(21) 9 7741-2290",
+        "password": "dualblade"
+    },
+    {
+        "name": "Marin Kitagawa",
+        "email": "marin.kita@example.com",
+        "phone": "(31) 9 6654-9981",
+        "password": "cosplayqueen"
+    },
+    {
+        "name": "Shoyo Hinata",
+        "email": "hinata.s@example.com",
+        "phone": "(85) 9 8124-3375",
+        "password": "jumpserve"
+    },
+    {
+        "name": "Kaguya Shinomiya",
+        "email": "kaguya.shi@example.com",
+        "phone": "(19) 9 7432-1188",
+        "password": "iceprincess"
+    }
+]
