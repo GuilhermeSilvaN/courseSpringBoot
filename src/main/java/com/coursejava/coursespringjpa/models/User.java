@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -31,6 +32,7 @@ public class User implements Serializable {
     @Column(unique=true, nullable=false)
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy="client")
     private List<Order> orders =  new ArrayList<>();
 
