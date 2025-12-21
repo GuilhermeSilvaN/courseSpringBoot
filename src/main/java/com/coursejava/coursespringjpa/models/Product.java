@@ -1,5 +1,6 @@
 package com.coursejava.coursespringjpa.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -29,7 +30,12 @@ public class Product implements Serializable {
 
     private String imgUrl;
 
-    @Transient
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="TB_PRODUCT_ORDER",
+            joinColumns=@JoinColumn(name="product_id"),
+            inverseJoinColumns=@JoinColumn(name="category_id")
+    )
     private Set<Category> categories = new HashSet<>();
 
     public Product() {}
