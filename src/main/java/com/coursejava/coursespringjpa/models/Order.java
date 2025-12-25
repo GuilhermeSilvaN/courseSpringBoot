@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="TB_ORDER")
@@ -22,6 +24,9 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy="id.order")
+    private Set<OrderItem> orderItems = new HashSet<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="GMT")
     private Instant moment;
@@ -62,6 +67,10 @@ public class Order implements Serializable {
 
     public OrderStatus getOrderStatus() {
         return OrderStatus.valueOf(this.status);
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

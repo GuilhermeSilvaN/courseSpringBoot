@@ -42,13 +42,18 @@ public class OrderItemPK implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (!(o instanceof OrderItemPK)) return false;
         OrderItemPK that = (OrderItemPK) o;
-        return Objects.equals(order, that.order) && Objects.equals(product, that.product);
+        return Objects.equals(order.getId(), that.order.getId()) &&
+                Objects.equals(product.getId(), that.product.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(order, product);
+        return Objects.hash(
+                order.getId(),
+                product.getId()
+        );
     }
 }
