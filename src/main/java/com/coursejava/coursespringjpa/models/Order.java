@@ -33,6 +33,9 @@ public class Order implements Serializable {
 
     private Integer status;
 
+    @OneToOne(mappedBy="order", cascade = CascadeType.ALL)
+    private Payment payment;
+
     public Order() {}
 
     public Order(User client, Instant moment, OrderStatus status) {
@@ -77,5 +80,13 @@ public class Order implements Serializable {
         if(orderStatus != null){
             this.status = orderStatus.getCode();
         }
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }
