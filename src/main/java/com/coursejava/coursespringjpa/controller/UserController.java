@@ -4,9 +4,13 @@ import com.coursejava.coursespringjpa.models.User;
 import com.coursejava.coursespringjpa.record.UserRecordDto;
 import com.coursejava.coursespringjpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -30,9 +34,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<String> saveUser(@RequestBody UserRecordDto userRecordDto){
-        userService.saveUser(userRecordDto);
+    public ResponseEntity<User> saveUser(@RequestBody User obj){
+        User userSave = userService.insert(obj);
 
-        return ResponseEntity.ok("save successful");
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userSave.getId()).toUri();
+        return ResponseEntity.created(uri).body(userSave);
     }
 }
