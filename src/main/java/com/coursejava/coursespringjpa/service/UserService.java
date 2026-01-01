@@ -40,4 +40,9 @@ public class UserService {
     public User insert (User user){
         return userRepository.save(user);
     }
+
+    @Transactional
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
+    }
 }
