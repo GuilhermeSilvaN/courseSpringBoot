@@ -3,8 +3,13 @@ package com.coursejava.coursespringjpa.service;
 import com.coursejava.coursespringjpa.models.User;
 import com.coursejava.coursespringjpa.record.UserRecordDto;
 import com.coursejava.coursespringjpa.repositories.UserRepository;
+import com.coursejava.coursespringjpa.service.exceptions.DatabaseException;
 import com.coursejava.coursespringjpa.service.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,14 +49,27 @@ public class UserService {
 
     @Transactional
     public void deleteById(Long id){
-        userRepository.deleteById(id);
+        try{
+            userRepository.deleteById(id);
+            userRepository.flush();
+
+        } catch(EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        } catch(DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     @Transactional
     public User updateUser(Long id, User user){
-        User userUp = userRepository.getReferenceById(id);
-        updateData(userUp, user);
-        return userRepository.save(userUp);
+        try{
+            User userUp = userRepository.getReferenceById(id);
+            updateData(userUp, user);
+            userRepository.flush();
+            return userRepository.save(userUp);
+        } catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User obj, User user){
